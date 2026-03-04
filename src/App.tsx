@@ -14,7 +14,6 @@ enum Mode {
 }
 
 export const App: React.FC = () => {
-  const [, setMode] = useState<Mode>(Mode.NON);
   const [goods, setGoods] = useState<Good[]>([]);
 
   const strategy = {
@@ -24,9 +23,9 @@ export const App: React.FC = () => {
   };
 
   const handleClick = (change: Mode) => {
-    setMode(change);
-
-    strategy[change]().then(setGoods);
+    strategy[change]()
+      .then(setGoods)
+      .catch(() => setGoods([]));
   };
 
   return (
